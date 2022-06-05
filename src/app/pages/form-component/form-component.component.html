@@ -1,0 +1,69 @@
+<form [formGroup]="formGroup">
+    <div *ngFor="let from_data of fromdata">
+        <div class="row">
+            <div *ngFor="let oth_col of from_data.other_type" class="col">
+                <mat-form-field *ngIf="oth_col.type  == 'text'" class="example-full-width" appearance="outline">
+                    <mat-label>{{oth_col.name}}</mat-label>
+                    <input matInput formControlName="{{oth_col.formname}}" placeholder="{{oth_col.name}}" value="">
+                </mat-form-field>
+
+                <mat-form-field *ngIf="oth_col.type  == 'currency'" class="example-full-width" appearance="outline">
+                    <mat-label>{{oth_col.name}}</mat-label>
+                    <input matInput formControlName="{{oth_col.formname}}" placeholder="{{oth_col.name}}" value="">
+                    <span matPrefix>$&nbsp;</span>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="oth_col.type  == 'percentage'" class="example-full-width" appearance="outline">
+                    <mat-label>{{oth_col.name}}</mat-label>
+                    <input matInput formControlName="{{oth_col.formname}}" placeholder="{{oth_col.name}}" value="">
+                    <span matSuffix>%&nbsp;</span>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="oth_col.type  == 'datetime'" class="example-full-width" appearance="outline">
+                    <mat-label>{{oth_col.name}}</mat-label>
+                    <input matInput formControlName="{{oth_col.formname}}" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="oth_col.type  == 'selectoptionvalue'" class="example-full-width"
+                    appearance="outline">
+                    <mat-label>{{oth_col.name}}</mat-label>
+                    <mat-select formControlName="{{oth_col.formname}}">
+                        <mat-option *ngFor="let possible_key of oth_col.possiblevalue" [value]="possible_key">
+                            {{possible_key}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- formArrayName="platforms"  -->
+                <div *ngIf="oth_col.type  == 'checkboxlist'"   class="example-full-width" appearance="outline">
+                    <mat-label>{{oth_col.name}}</mat-label>
+                    <!-- [formGroupName]="i" -->
+                    <section *ngFor="let possible_key of oth_col.possiblevalue; let i = index;" formArrayName="{{oth_col.formname}}"  class="example-section">
+                        <mat-checkbox  [formControlName]="i"  (change)="checkChange($event,i,oth_col.formname)">
+                            {{possible_key.key}}
+                        </mat-checkbox>
+                    </section>
+
+                    <!-- <mat-select formControlName="{{oth_col.formname}}">
+                        <mat-option *ngFor="let possible_key of oth_col.possiblevalue" [value]="possible_key">
+                            {{possible_key}}
+                        </mat-option>
+                    </mat-select> -->
+                </div>
+
+                <div *ngIf="oth_col.type  == 'rediobutton'" class="">
+                    <div *ngFor="let possible_key of oth_col.possiblevalue">
+                        <input type="radio" class="" value="{{possible_key}}" name="{{oth_col.formname}}"
+                            formControlName="{{oth_col.formname}}">
+                        <label class="" for="male">{{possible_key}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <button mat-raised-button color="primary" (click)="saveData()">Save</button>
+    </div>
+</form>
