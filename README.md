@@ -1,5 +1,8 @@
 # DynamicFormGeneration
 
+This simple project created to create a dynamic form in angular let's see we have 10+ forms(that have diffrent value and keys) in one project and we simply create all from in angular no need to copy and paste 10 times and need to change key and value  one code in this, this is a common component for it, we need to give JSON object for our form and possible value for it and from is well design and display from common components.
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.19.
 
 ## Development server
